@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require('cors');
-const axios = require("axios")
+const usuarios = require("./banco")
+const axios = require("axios");
+const { where } = require("sequelize");
 
 //config do APP
 const app = express();
@@ -13,21 +15,38 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 //Rotas
-app.post('/api', async (req, res) => {
-    try{
-        console.log("URL completa:", req.url); 
-        console.log("body Params:", req.body); 
-        const { nome, email, senha} = req.body
-        res.json({message:`nome: ${nome}, email: ${email}, senha:${senha}`})
-        await axios.get(`http://localhost:5000/receber?nome=${encodeURIComponent(nome)}&email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`)
-    }catch(error){
-        console.log("Erro: ", error)
-    }
-});
+app.post('/api', (req, res) => {
+        const { nome, email, senha} = req.body;
+        usuarios.create({
+            nome: nome,
+            email:email,
+            senha:senha
+        }).then(() => console.log("usuarios criado com sucesso!"));
+        res.json({message:`nome: ${nome}, email: ${email}, senha:${senha}`});
+    });
 
-app.get("/receber", (req, res) => {
-    const { nome, email, senha } = req.query;
-    res.send()
+app.post('/receber', async (req, res) => {
+    console.log("Dados enviados: ", req.url)
+    const { email, senha } = req.body;
+    const user = await usuarios.findOne({
+        where:{
+            email:email
+        }
+    })
+
+    res.json({user})
+})
+
+app.put('/redefinir/:id', async (req, res) =>{
+    const id = parseInt(req.params.id)
+    const { email, senha, reSenha } = req.body
+    if(senha !== reSenha) {
+        res.send("As senhas não coincidem")
+    }
+
+    await usuarios.update({senha}, {where: {id}})
+    const user = await usuarios.findByPk(id)
+    res.json({user})
 })
 
 const porta = 5000

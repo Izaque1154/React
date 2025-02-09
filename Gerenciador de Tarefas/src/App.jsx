@@ -7,8 +7,8 @@ import axios from "axios"
 function App(){
     const navigate = useNavigate()
 
-    function home(){
-        navigate('/Home')
+    function gerenciador(){
+        navigate('/gerenciador')
     }
     function cadastro(){
         navigate("/cadastro")
@@ -19,7 +19,7 @@ function App(){
     
     return (
         <nav className="container"> 
-            <a onClick={home}>Home</a>
+            <a onClick={gerenciador}>Gerenciador</a>
             <a onClick={cadastro}>Cadastrar</a>
             <a onClick={login}>Login</a>
         </nav>

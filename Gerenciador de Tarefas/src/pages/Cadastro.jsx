@@ -1,10 +1,12 @@
-import "./cadastro.css"
+import "./css/cadastro.css"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 
 function Cadastro(){
+    const navigate = useNavigate()
+
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
@@ -25,6 +27,7 @@ function Cadastro(){
                 }
             })
             console.log(resposta.data)
+            navigate("/Home")
         }catch(error){
             console.log("Erro: ", error)
         }
@@ -42,14 +45,14 @@ function Cadastro(){
     }
 
     return(
-        <form className="cad" onSubmit={dadosCadastro}>
+        <form autoComplete="off" className="cad" onSubmit={dadosCadastro}>
             <label htmlFor="nome">Nome</label>
             <input type="text" id="nome" value={nome} onChange={dadosNome} />
             <label htmlFor="email">E-mail</label>
             <input type="email" id="email" value={email} onChange={dadosEmail} />
             <label htmlFor="senha">Senha</label>
             <input type="password" id="senha" value={senha} onChange={dadosSenha} />
-            <input type="submit" name="submit" id="submit" />
+            <input type="submit" name="submit" id="submit"/>
         </form>
     )
 }
