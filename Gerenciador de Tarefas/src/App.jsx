@@ -1,4 +1,4 @@
-import "./App.css"
+import styles from './App.module.css'
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -7,8 +7,8 @@ import axios from "axios"
 function App(){
     const navigate = useNavigate()
 
-    function gerenciador(){
-        navigate('/gerenciador')
+    function tarefas(){
+        navigate('/tarefas')
     }
     function cadastro(){
         navigate("/cadastro")
@@ -16,12 +16,16 @@ function App(){
     function login(){
         navigate("/login")
     }
+    function teste(){
+        navigate("/teste")
+    }
     
     return (
-        <nav className="container"> 
-            <a onClick={gerenciador}>Gerenciador</a>
-            <a onClick={cadastro}>Cadastrar</a>
-            <a onClick={login}>Login</a>
+        <nav className={styles.container}> 
+            <a onClick={tarefas} className={styles.a} >Tarefas</a>
+            <a onClick={cadastro} className={styles.a} >Cadastrar</a>
+            <a onClick={login} className={styles.a} >Login</a>
+            <a onClick={teste} className={styles.a}>Teste</a>
         </nav>
     )
 }

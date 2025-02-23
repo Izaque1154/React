@@ -1,6 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
-import "./css/redefinirSenha.css"
+import styles from "./css/redefinirSenha.module.css"
 
 function RedefinirSenha(){
 

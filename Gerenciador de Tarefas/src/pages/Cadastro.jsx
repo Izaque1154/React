@@ -1,4 +1,4 @@
-import "./css/cadastro.css"
+import styles from "./css/cadastro.module.css"
 import axios from "axios"
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -27,7 +27,7 @@ function Cadastro(){
                 }
             })
             console.log(resposta.data)
-            navigate("/Home")
+            navigate("/tarefas")
         }catch(error){
             console.log("Erro: ", error)
         }
@@ -45,14 +45,14 @@ function Cadastro(){
     }
 
     return(
-        <form autoComplete="off" className="cad" onSubmit={dadosCadastro}>
-            <label htmlFor="nome">Nome</label>
-            <input type="text" id="nome" value={nome} onChange={dadosNome} />
-            <label htmlFor="email">E-mail</label>
-            <input type="email" id="email" value={email} onChange={dadosEmail} />
-            <label htmlFor="senha">Senha</label>
-            <input type="password" id="senha" value={senha} onChange={dadosSenha} />
-            <input type="submit" name="submit" id="submit"/>
+        <form autoComplete="off" className={styles.cad} onSubmit={dadosCadastro}>
+            <label htmlFor="nome" className={styles.label}>Nome</label>
+            <input type="text" id="nome" className={styles.input} value={nome} onChange={dadosNome} />
+            <label htmlFor="email" className={styles.label}>E-mail</label>
+            <input type="email" id="email" className={styles.input} value={email} onChange={dadosEmail} />
+            <label htmlFor="senha"className={styles.label}>Senha</label>
+            <input type="password" id="senha" className={styles.input} value={senha} onChange={dadosSenha} />
+            <input type="submit" className={styles.submit} id="submit"/>
         </form>
     )
 }

@@ -1,54 +1,119 @@
+// Importação dos pacotes necessários
 const express = require("express");
 const cors = require('cors');
-const usuarios = require("./banco")
-const axios = require("axios");
-const { where } = require("sequelize");
+const { usuarios, tarefas } = require("./banco");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-//config do APP
+// Configuração do Express
 const app = express();
 app.use(cors({
     origin: "*", 
-    methods: "GET,POST,PUT,DELETE",  
-    allowedHeaders: "Content-Type"
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: "Content-Type, Authorization"
 }));
-app.use(express.json())
+
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Rotas
-app.post('/api', (req, res) => {
-        const { nome, email, senha} = req.body;
-        usuarios.create({
-            nome: nome,
-            email:email,
-            senha:senha
-        }).then(() => console.log("usuarios criado com sucesso!"));
-        res.json({message:`nome: ${nome}, email: ${email}, senha:${senha}`});
-    });
+// Middleware de autenticação
+function checkToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
 
-app.post('/receber', async (req, res) => {
-    console.log("Dados enviados: ", req.url)
-    const { email, senha } = req.body;
-    const user = await usuarios.findOne({
-        where:{
-            email:email
-        }
-    })
-
-    res.json({user})
-})
-
-app.put('/redefinir/:id', async (req, res) =>{
-    const id = parseInt(req.params.id)
-    const { email, senha, reSenha } = req.body
-    if(senha !== reSenha) {
-        res.send("As senhas não coincidem")
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ msg: "Token não encontrado ou inválido" });
     }
 
-    await usuarios.update({senha}, {where: {id}})
-    const user = await usuarios.findByPk(id)
-    res.json({user})
-})
+    const token = authHeader.split(" ")[1];
 
-const porta = 5000
-app.listen(porta, () => console.log(`Server rodando na porta: ${porta}`))
+    try {
+        const secret = process.env.SECRET;
+        const decoded = jwt.verify(token, secret);
+        req.user = decoded;
+        console.log(decoded)
+        next();
+    } catch (error) {
+        return res.status(401).json({ msg: "Token inválido!" });
+    }
+}
 
+// Rotas de Usuário
+app.post('/api', (req, res) => {
+    const { nome, email, senha } = req.body;
+    usuarios.create({
+        nome: nome,
+        email: email,
+        senha: senha
+    }).then(() => console.log("Usuário criado com sucesso!"));
+    res.json({ message: `nome: ${nome}, email: ${email}, senha: ${senha}` });
+});
+
+// Rota para criar tarefas (requisição autenticada)
+app.post("/tarefas", checkToken, async (req, res) => {
+    console.log(req.body); // Verifique o conteúdo do corpo da requisição
+    const tarefa = req.body.tarefa;
+    console.log("valor da tarefa: " ,tarefa)
+
+    if (!tarefa) {
+        return res.status(400).json({ msg: "Tarefa não pode ser vazia" });
+    }
+
+    try {
+        await tarefas.create({
+            usuarioId: req.user.id,
+            tarefas: tarefa
+        });
+        console.log("Tarefa criada com sucesso!");
+        res.status(201).json({ msg: "Tarefa criada com sucesso", tarefa });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Erro ao criar tarefa", error });
+    }
+});
+// Rota para autenticação e geração de token JWT
+app.post('/receber', async (req, res) => {
+    const secret = process.env.SECRET;
+    const { email, senha } = req.body;
+
+    console.log("Email recebido:", email); // Adicionando log para verificar o email recebido
+
+    const user = await usuarios.findOne({ where: { email: email } });
+    if (!user) {
+        return res.status(401).json({ error: "Usuário não encontrado!" });
+    }
+
+    const senhaCorreta = await (senha, user.senha);
+    if (!senhaCorreta) {
+        return res.status(401).json({ error: "Senha incorreta!" });
+    }
+
+    try {
+        const token = jwt.sign(
+            { id: user.id, nome: user.nome, email: user.email },
+            secret,
+            { expiresIn: "1h" }
+        );
+        res.json({ token });
+    } catch (error) {
+        console.log("Erro na geração do token:", error);
+        res.status(500).json({ error: "Erro ao gerar token" });
+    }
+});
+
+// Rota para redefinir a senha do usuário
+app.put('/redefinir/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const { email, senha, reSenha } = req.body;
+
+    if (senha !== reSenha) {
+        return res.status(400).send("As senhas não coincidem");
+    }
+
+    await usuarios.update({ senha }, { where: { id } });
+    const user = await usuarios.findByPk(id);
+    res.json({ user });
+});
+
+// Definir a porta e iniciar o servidor
+const porta = 5000;
+app.listen(porta, () => console.log(`Server rodando na porta: ${porta}`));

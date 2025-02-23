@@ -1,24 +1,62 @@
 const { Sequelize } = require("sequelize");
+require("dotenv").config()
 
 const sequelize = new Sequelize("usuarios_cadastro", "root", "@Izaque1154", {
-    host:"localhost",
-    dialect:"mysql"
+    host: "localhost",
+    dialect: "mysql"
 })
 
+// Modelo de usuários
 const usuarios = sequelize.define('usuarios', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
     nome: {
         type: Sequelize.STRING
     },
     email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
     },
-    senha: Sequelize.CHAR(60)
+    senha: Sequelize.STRING(255)
 })
 
-sequelize.sync()
-/*sequelize.query("CREATE DATABASE IF NOT EXISTS usuarios_cadastro;")
-.then(() => console.log("Banco de dados criado com sucesso"))
-.catch((error) => console.log("Erro ao criar banco, erro: ", error))
-*/
+// Modelo de tarefas
+const tarefas = sequelize.define('tarefas', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    usuarioId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+            model: usuarios,
+            key: 'id'
+        },
+        onDelete: "CASCADE"
+    },
+    tarefas: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    concluida: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+    }
+})
 
-module.exports = usuarios
+// Associação entre usuários e tarefas
+usuarios.hasMany(tarefas, { foreignKey: 'usuarioId' });
+tarefas.belongsTo(usuarios, { foreignKey: 'usuarioId' });
+
+// Sincronizando os modelos com o banco
+sequelize.sync({ alter: true })
+    .then(() => console.log("Tabelas sincronizadas com sucesso!"))
+    .catch((error) => console.log("Erro ao sincronizar o banco de dados:", error));
+
+module.exports = { usuarios, tarefas };
