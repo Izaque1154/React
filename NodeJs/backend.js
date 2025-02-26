@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require('cors');
 const { usuarios, tarefas } = require("./banco");
 const jwt = require("jsonwebtoken");
+const { where } = require("sequelize");
 require("dotenv").config();
 
 // Configuração do Express
@@ -70,6 +71,29 @@ app.post("/tarefas", checkToken, async (req, res) => {
         res.status(500).json({ msg: "Erro ao criar tarefa", error });
     }
 });
+app.post("/tarefas/pegar", checkToken, async (req, res) => {
+    try {
+        const tarefasUsuario = await tarefas.findAll({ 
+            where: { usuarioId: req.user.id } 
+        });
+
+        res.status(200).json(tarefasUsuario);
+    } catch (error) {
+        console.error("Erro ao buscar tarefas:", error);
+        res.status(500).json({ msg: "Erro ao buscar tarefas", error });
+    }
+});
+app.put("/editar/:id", checkToken, async(req, res) => {
+    const id = parseInt(req.params.id)
+    const { tarefas } = req.body
+    console.log(id)
+    console.log(tarefas)
+
+    if(!id){
+        res.status(401).json({ msg: "Id não foi passado" })
+    }
+    await tarefas.update({ tarefas }, { where: { id, usuarioId: req.user.id }})
+})
 // Rota para autenticação e geração de token JWT
 app.post('/receber', async (req, res) => {
     const secret = process.env.SECRET;

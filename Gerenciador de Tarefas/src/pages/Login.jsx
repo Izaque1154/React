@@ -32,7 +32,7 @@ function Login(){
         e.preventDefault();
         try {
             const url = "http://localhost:5000/receber";
-            const dados = { email, senha };  
+            const dados = { email: email, senha: senha };  
     
             const resposta = await axios.post(url, dados, {
                 headers: { "Content-Type": "application/json" }
