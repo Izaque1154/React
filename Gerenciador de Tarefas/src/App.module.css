@@ -1,27 +1,83 @@
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    padding: 100px;
-    border: none;
-    box-shadow: 4px 4px 10px rgb(141, 141, 141);
-    height: 550px;
-    width: 700px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgb(248, 248, 238);
+/* Container do Nav */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #8e44ad, #2980b9); /* Gradiente vibrante e elegante */
+  padding: 30px 60px;
+  border-radius: 15px; /* Bordas mais arredondadas para um toque suave */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Sombra luxuosa para profundidade */
+  width: 40%;
+  height: 120px;
+  max-width: 1300px; /* Controle de largura máxima */
+  margin: 0 auto;
+  box-sizing: border-box;
+  transition: all 0.4s ease; /* Transição suave para interações */
 }
-.a{
-    text-decoration: none;
-    color: rgb(110, 110, 110);
-    font-size: 28px;
-    transition: 1s;
-    cursor: pointer;
+
+/* Estilo dos Links */
+.a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase; /* Transformação para maiúsculas para um visual mais impactante */
+  margin: 0 40px;
+  position: relative;
+  transition: color 0.3s ease, transform 0.4s ease, box-shadow 0.3s ease; /* Adicionando transição para o box-shadow */
+  padding-bottom: 10px; /* Espaço abaixo para o efeito de borda */
 }
-.a:hover{
-    color: black;
-    font-size: 35px;
-    text-shadow: 3px 3px 5px rgb(122, 122, 122);
+
+/* Efeito de Hover no Link */
+.a:hover {
+  color: #f1d76d; /* Dourado vibrante para o hover */
+  transform: translateY(-5px); /* Leve elevação para dar sensação de interação */
+  cursor: pointer;
+  text-shadow: 0 0 1px #f39c12, 0 0 3px #f39c12, 0 0 5px #f39c12, 0 0 8px #e67e22, 0 0 16px #e67e22;}
+/* Animação de Underline (linhas douradas ao passar o mouse) */
+.a::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: #f1c40f; /* Cor dourada */
+  transition: width 0.4s ease;
+}
+
+.a:hover::before {
+  width: 100%; /* Linha dourada se expandindo */
+}
+
+/* Efeito de Foco (quando o link recebe foco) */
+.a:focus {
+  outline: none;
+  box-shadow: 0 0 15px 5px rgba(241, 196, 15, 0.7); /* Brilho dourado suave ao focar */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 20px;
+    height: 300px;
+  }
+
+  .a {
+    margin: 15px 0;
+    font-size: 18px; /* Ajusta o tamanho da fonte em telas menores */
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 80%;
+    height: 200px;
+  }
+  .a {
+    font-size: 16px; /* Font-size ainda menor em dispositivos muito pequenos */
+  }
 }

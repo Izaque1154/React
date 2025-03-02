@@ -16,16 +16,12 @@ function App(){
     function login(){
         navigate("/login")
     }
-    function teste(){
-        navigate("/teste")
-    }
     
     return (
         <nav className={styles.container}> 
             <a onClick={tarefas} className={styles.a} >Tarefas</a>
             <a onClick={cadastro} className={styles.a} >Cadastrar</a>
             <a onClick={login} className={styles.a} >Login</a>
-            <a onClick={teste} className={styles.a}>Teste</a>
         </nav>
     )
 }

@@ -40,7 +40,7 @@ const tarefas = sequelize.define('tarefas', {
         },
         onDelete: "CASCADE"
     },
-    tarefas: {
+    tarefa: {
         type: Sequelize.STRING,
         allowNull: false
     },

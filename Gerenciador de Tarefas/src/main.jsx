@@ -6,7 +6,7 @@ import Tarefas from './pages/Tarefas.jsx'
 import Cadastro from './pages/Cadastro.jsx'
 import Login from './pages/Login.jsx'
 import RedefinirSenha from './pages/redefinirSenha.jsx'
-import Teste  from './pages/css/teste.jsx'
+import Erro  from './pages/erro.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 
@@ -32,8 +32,8 @@ const router = createBrowserRouter([
     element: <RedefinirSenha/>
   },
   {
-    path: "/teste",
-    element: <Teste/>
+    path: "/erro",
+    element: <Erro/>
   }
 ])
 

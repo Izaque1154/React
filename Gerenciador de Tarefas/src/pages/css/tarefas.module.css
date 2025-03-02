@@ -1,113 +1,121 @@
+/* Container Principal */
 .container {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #fff;
+  background-color: #fff;
+  padding: 2rem 3rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
+/* Título */
+.h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Input de Nova Tarefa */
 .input {
-  width: 80%;
-  padding: 10px;
-  border: 2px solid #4caf50;
-  border-radius: 6px;
-  font-size: 16px;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #bdc3c7;
+  background-color: #f4f4f4;
+  color: #2c3e50;
   outline: none;
-  transition: border 0.3s ease-in-out;
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
 .input:focus {
-  border: 2px solid #2e7d32;
+  border-color: #3498db;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+  background-color: #fff;
 }
 
-button {
-  margin-top: 10px;
-  padding: 10px 15px;
+/* Botão */
+.button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
   border: none;
-  background: #4caf50;
-  color: white;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 6px;
-  transition: background 0.3s ease-in-out;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
 }
 
-button:hover {
-  background: #2e7d32;
+.button:hover {
+  background-color: #2980b9;
+  color: white;
+}
+
+.button:active {
+  background-color: #1f6fa3;
+  transform: translateY(2px);
+  color: white;
+}
+
+/* Lista de Tarefas */
+.div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
 }
 
 .tarefaItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f9f9f9;
-  padding: 12px;
+  background-color: #ecf0f1;
+  padding: 1rem;
   border-radius: 8px;
-  margin-top: 10px;
-  transition: transform 0.2s ease-in-out;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tarefaItem:hover {
   transform: scale(1.02);
+  background-color: #dfe6e9;
 }
 
 .pointer {
   cursor: pointer;
-  font-size: 18px;
-  flex: 1;
-  text-align: left;
+  font-size: 1rem;
+  color: #2c3e50;
+  transition: color 0.3s ease;
 }
 
 .pointer:hover {
-  text-decoration: underline;
+  color: #3498db;
 }
 
 .riscar {
   text-decoration: line-through;
-  color: #aaa;
+  color: #7f8c8d;
+  font-size: 1rem;
   cursor: pointer;
 }
 
-input[type="text"] {
-  width: 70%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+.tarefaItem button {
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #3498db;
+  cursor: pointer;
+  margin-left: 1rem;
+  transition: color 0.3s ease;
 }
 
-button:nth-child(2) {
-  background: #ff9800;
-}
-
-button:nth-child(2):hover {
-  background: #e68900;
-}
-
-button:nth-child(3) {
-  background: #f44336;
-}
-
-button:nth-child(3):hover {
-  background: #d32f2f;
-}
-.azul {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: aqua;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-.black {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: black;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.tarefaItem button:hover {
+  color: white;
 }
