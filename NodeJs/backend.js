@@ -1,6 +1,6 @@
 // Importação dos pacotes necessários
 const express = require("express");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const cors = require("cors");
 const { usuarios, tarefas } = require("./banco");
 const jwt = require("jsonwebtoken");
