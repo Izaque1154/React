@@ -21,7 +21,7 @@ function Cadastro() {
 
         console.log(!email);
         
-        const url = "http://localhost:5000/cadastro";
+        const url = "https://react-6d0x.onrender.com/cadastro";
         const dados = { nome, email, senha };
 
         try {

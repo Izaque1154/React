@@ -14,12 +14,12 @@ function RedefinirSenha() {
 
         try {
             // Buscar usuário pelo email
-            const { data } = await axios.post("http://localhost:5000/buscar", { email }, {
+            const { data } = await axios.post("https://react-6d0x.onrender.com/buscar", { email }, {
                 headers: { "Content-Type": "application/json" }
             });
 
             // Redefinir senha
-            await axios.put(`http://localhost:5000/redefinir/${data.id}`, {
+            await axios.put(`https://react-6d0x.onrender.com/redefinir/${data.id}`, {
                 id: data.id,
                 email,
                 senha,
