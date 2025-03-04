@@ -6,39 +6,43 @@ import Tarefas from './pages/Tarefas.jsx'
 import Cadastro from './pages/Cadastro.jsx'
 import Login from './pages/Login.jsx'
 import RedefinirSenha from './pages/redefinirSenha.jsx'
-import Erro  from './pages/erro.jsx'
+import Erro from './pages/erro.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+    },
+    {
+      path: "/tarefas",
+      element: <Tarefas />,
+    },
+    {
+      path: "/cadastro",
+      element: <Cadastro />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/redefinirSenha",
+      element: <RedefinirSenha />,
+    },
+    {
+      path: "/erro",
+      element: <Erro />,
+    }
+  ],
   {
-    path: '/',
-    element: <App />
-  },
-  {
-    path: '/tarefas',
-    element: <Tarefas />
-  },
-  {
-    path: '/cadastro',
-    element: <Cadastro />
-  },
-  {
-    path: '/login',
-    element: <Login />
-  },
-  {
-    path: "/redefinirSenha",
-    element: <RedefinirSenha/>
-  },
-  {
-    path: "/erro",
-    element: <Erro/>
+    basename: '/React'
   }
-])
+);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
-)
+  </StrictMode>
+);

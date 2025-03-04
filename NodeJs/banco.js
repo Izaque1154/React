@@ -1,10 +1,16 @@
 const { Sequelize } = require("sequelize");
-require("dotenv").config()
+require("dotenv").config();
 
-const sequelize = new Sequelize("usuarios_cadastro", "root", "@Izaque1154", {
-    host: "localhost",
-    dialect: "mysql"
-})
+const sequelize = new Sequelize(
+    process.env.DB_NAME,   
+    process.env.DB_USER,   
+    process.env.DB_PASSWORD,  
+    {
+        host: process.env.DB_HOST,   
+        dialect: "postgres",         
+        port: process.env.DB_PORT || 5432,  
+    }
+);
 
 // Modelo de usuários
 const usuarios = sequelize.define('usuarios', {
@@ -22,7 +28,7 @@ const usuarios = sequelize.define('usuarios', {
         allowNull: false,
     },
     senha: Sequelize.STRING(255)
-})
+});
 
 // Modelo de tarefas
 const tarefas = sequelize.define('tarefas', {
@@ -48,7 +54,7 @@ const tarefas = sequelize.define('tarefas', {
         type: Sequelize.BOOLEAN,
         defaultValue: false
     }
-})
+});
 
 // Associação entre usuários e tarefas
 usuarios.hasMany(tarefas, { foreignKey: 'usuarioId' });
