@@ -211,5 +211,7 @@ app.post("/buscar", async (req, res) => {
 });
 
 // Iniciando o servidor
-const porta = 5000;
-app.listen(porta, () => console.log(`Server rodando na porta: ${porta}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
