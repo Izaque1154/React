@@ -10,7 +10,7 @@ require("dotenv").config();
 // Configuração do Express
 const app = express();
 app.use(cors({
-    origin: "*",
+    origin: "https://izaque1154.github.io",
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type, Authorization"
 }));
