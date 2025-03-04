@@ -25,7 +25,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const url = "https://lreact-6d0x.onrender.com/login";
+            const url = "https://react-t6ou.onrender.com/login";
             const dados = { email, senha };
 
             const resposta = await axios.post(url, dados, {

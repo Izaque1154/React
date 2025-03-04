@@ -16,7 +16,7 @@ function Tarefas() {
     async function chamarTarefas() {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.post("https://react-6d0x.onrender.com/tarefas/pegar", {}, {
+            const response = await axios.post("https://react-t6ou.onrender.com/tarefas/pegar", {}, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTarefas(response.data);
@@ -34,7 +34,7 @@ function Tarefas() {
     async function adicionarTarefa() {
         const token = localStorage.getItem("token");
         if (tarefa !== "") {
-            await axios.post("https://react-6d0x.onrender.com/tarefas", { tarefa }, {
+            await axios.post("https://react-t6ou.onrender.com/tarefas", { tarefa }, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
@@ -57,7 +57,7 @@ function Tarefas() {
         const token = localStorage.getItem("token");
         const tarefaEditada = novaTarefa[index];
         if (tarefaEditada.tarefa !== "") {
-            await axios.put(`https://react-6d0x.onrender.com/editar/${tarefaEditada.id}`, { tarefa: tarefaEditada.tarefa }, {
+            await axios.put(`https://react-t6ou.onrender.com/editar/${tarefaEditada.id}`, { tarefa: tarefaEditada.tarefa }, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
@@ -72,7 +72,7 @@ function Tarefas() {
 
     async function excluirTarefa(index) {
         const token = localStorage.getItem("token");
-        await axios.delete(`https://react-6d0x.onrender.com/deletar/${tarefas[index].id}`, {
+        await axios.delete(`https://react-t6ou.onrender.com/deletar/${tarefas[index].id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
         chamarTarefas();
@@ -87,7 +87,7 @@ function Tarefas() {
             const tarefaAtualizada = novasTarefas[index];
             setRiscarTarefa(novasTarefas);
 
-            await axios.put(`https://react-6d0x.onrender.com/riscar/${tarefaAtualizada.id}`, { concluida: tarefaAtualizada.concluida }, {
+            await axios.put(`https://react-t6ou.onrender.com/riscar/${tarefaAtualizada.id}`, { concluida: tarefaAtualizada.concluida }, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`

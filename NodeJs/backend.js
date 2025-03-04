@@ -56,7 +56,7 @@ app.post("/cadastro", async (req, res) => {
     console.log("Usuário criado com sucesso!");
 
     try {
-        const resposta = await axios.post("https://react-6d0x.onrender.com/login", { email, senha }, {
+        const resposta = await axios.post("https://react-t6ou.onrender.com/login", { email, senha }, {
             headers: { "Content-Type": "application/json" }
         });
         res.json({ token: resposta.data.token });
