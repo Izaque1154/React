@@ -91,8 +91,9 @@ app.post("/login", async (req, res) => {
             { expiresIn: "24h" }
         );
         res.json({ token });
-    } catch {
+    } catch(error) {
         res.status(500).json({ erro: "Erro ao gerar token" });
+        console.log(error)
     }
 });
 
