@@ -13,12 +13,6 @@ function Cadastro() {
     async function dadosCadastro(e) {
         e.preventDefault();
 
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-        if (!emailRegex.test(email)) {
-            alert("O email precisa ser do tipo @gmail.com");
-            return;
-        }
-
         console.log(!email);
         
         const url = "https://react-t6ou.onrender.com/cadastro";
