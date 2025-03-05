@@ -32,7 +32,7 @@ function Cadastro() {
             }
         } catch (error) {
             console.log("Erro: ", error);
-            alert("Email ou senha incorretos")
+            alert("Usuario já existe")
         }
     }
 
