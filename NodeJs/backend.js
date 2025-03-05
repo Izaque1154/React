@@ -83,6 +83,7 @@ app.post("/login", async (req, res) => {
     if(!resultado){
         return res.status(401).json({erro: "Senha incorreta"})
     }
+    console.log("Secret: ", process.env.SECRET)
 
     try {
         const token = jwt.sign(
